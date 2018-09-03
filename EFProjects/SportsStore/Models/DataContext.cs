@@ -13,6 +13,7 @@ namespace SportsStore.Models
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Order> Orders { get; set; }
+
         public DbSet<OrderLine> OrderLines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

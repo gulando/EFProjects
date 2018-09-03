@@ -15,19 +15,23 @@ namespace SportsStore.Controllers
         public IActionResult Index()
         {
             ViewBag.Count = context.Products.Count();
-            return View(context.Products
-                .Include(p => p.Category).OrderBy(p => p.Id).Take(20));
+            return View(context.Products.Include(p => p.Category).OrderBy(p => p.Id).Take(20));
         }
 
         [HttpPost]
         public IActionResult CreateSeedData(int count)
         {
             ClearData();
+
             if (count > 0)
             {
                 context.Database.SetCommandTimeout(System.TimeSpan.FromMinutes(10));
-                context.Database
-                    .ExecuteSqlCommand("DROP PROCEDURE IF EXISTS CreateSeedData");
+                context.Database.ExecuteSqlCommand($"IF EXISTS(SELECT 1 FROM sys.procedures " +
+                    "WHERE Name = 'CreateSeedData') " +
+                    "BEGIN " +
+                    "DROP PROCEDURE dbo.CreateSeedData " +
+                    "END");
+
                 context.Database.ExecuteSqlCommand($@"
                     CREATE PROCEDURE CreateSeedData
 	                    @RowCount decimal

@@ -64,8 +64,7 @@ namespace SportsStore.Controllers
         private Cart GetCart() =>
             HttpContext.Session.GetJson<Cart>("Cart") ?? new Cart();
 
-        private void SaveCart(Cart cart) =>
-            HttpContext.Session.SetJson("Cart", cart);
+        private void SaveCart(Cart cart) => HttpContext.Session.SetJson("Cart", cart);
 
         public IViewComponentResult Invoke(ISession session)
         {

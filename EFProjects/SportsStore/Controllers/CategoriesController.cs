@@ -11,8 +11,7 @@ namespace SportsStore.Controllers
 
         public CategoriesController(ICategoryRepository repo) => repository = repo;
 
-        public IActionResult Index(QueryOptions options)
-            => View(repository.GetCategories(options));
+        public IActionResult Index(QueryOptions options) => View(repository.GetCategories(options));
 
         [HttpPost]
         public IActionResult AddCategory(Category category)

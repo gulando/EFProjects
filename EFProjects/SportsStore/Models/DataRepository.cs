@@ -12,11 +12,9 @@ namespace SportsStore.Models
 
         public DataRepository(DataContext ctx) => context = ctx;
 
-        public IEnumerable<Product> Products => context.Products
-            .Include(p => p.Category).ToArray();
+        public IEnumerable<Product> Products => context.Products.Include(p => p.Category).ToArray();
 
-        public PagedList<Product> GetProducts(QueryOptions options,
-                long category = 0)
+        public PagedList<Product> GetProducts(QueryOptions options, long category = 0)
         {
             IQueryable<Product> query = context.Products.Include(p => p.Category);
             if (category != -0)
@@ -26,8 +24,7 @@ namespace SportsStore.Models
             return new PagedList<Product>(query, options);
         }
 
-        public Product GetProduct(long key) => context.Products
-            .Include(p => p.Category).First(p => p.Id == key);
+        public Product GetProduct(long key) => context.Products.Include(p => p.Category).First(p => p.Id == key);
 
         public void AddProduct(Product product)
         {
@@ -49,8 +46,7 @@ namespace SportsStore.Models
         public void UpdateAll(Product[] products)
         {
             Dictionary<long, Product> data = products.ToDictionary(p => p.Id);
-            IEnumerable<Product> baseline =
-                context.Products.Where(p => data.Keys.Contains(p.Id));
+            IEnumerable<Product> baseline = context.Products.Where(p => data.Keys.Contains(p.Id));
 
             foreach (Product databaseProduct in baseline)
             {
