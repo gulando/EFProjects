@@ -25,8 +25,7 @@ namespace SportsStore {
             services.AddTransient<IOrdersRepository, OrdersRepository>();
             services.AddTransient<IWebServiceRepository, WebServiceRepository>();
             string conString = Configuration["ConnectionStrings:DefaultConnection"];
-            services.AddDbContext<DataContext>(options =>
-                options.UseSqlServer(conString));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(conString));
 
             services.AddDistributedSqlServerCache(options => {
                 options.ConnectionString = conString;
